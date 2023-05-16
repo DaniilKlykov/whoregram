@@ -1,6 +1,15 @@
 from django.db import models
 
 
+CHOICES = (
+    ('Gray', 'Серый'),
+    ('Black', 'Черный'),
+    ('White', 'Белый'),
+    ('Ginger', 'Рыжий'),
+    ('Mixed', 'Смешанный'),
+)
+
+
 class Achievement(models.Model):
     name = models.CharField(max_length=64)
 
@@ -21,6 +30,7 @@ class Whore(models.Model):
         db_table = 'whore'
 
     name = models.CharField(max_length=15)
+    panty_color = models.CharField(max_length=15, null=True)
     venereal = models.CharField(max_length=20, null=True)
     birth_year = models.IntegerField()
     boobs = models.IntegerField()
