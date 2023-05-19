@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth import get_user_model
 
 
 CHOICES = (
@@ -9,6 +10,8 @@ CHOICES = (
     ('Mixed', 'Смешанный'),
 )
 
+User = get_user_model()
+
 
 class Achievement(models.Model):
     name = models.CharField(max_length=64)
@@ -17,18 +20,7 @@ class Achievement(models.Model):
         return self.name
 
 
-class Owner(models.Model):
-    nickname = models.CharField(max_length=128)
-    first_name = models.CharField(max_length=128)
-
-    def __str__(self):
-        return f'{self.nickname} {self.first_name}'
-
-
 class Whore(models.Model):
-    class Meta:
-        db_table = 'whore'
-
     name = models.CharField(max_length=15)
     panty_color = models.CharField(max_length=15, null=True)
     venereal = models.CharField(max_length=20, null=True)
@@ -36,9 +28,17 @@ class Whore(models.Model):
     boobs = models.IntegerField()
     feature = models.CharField(max_length=20, null=True)  # (её фишка)
     owner = models.ForeignKey(
-        Owner, related_name='whore', on_delete=models.CASCADE)
+        User, related_name='whores', on_delete=models.CASCADE)
     achievements = models.ManyToManyField(Achievement,
                                           through='AchievementWhore')
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=['name', 'owner'],
+                name='unique_name_owner'
+            )
+        ]
 
     def __str__(self):
         return self.name
@@ -50,3 +50,11 @@ class AchievementWhore(models.Model):
 
     def __str__(self):
         return f'{self.achievement} {self.whore}'
+
+
+# class Owner(models.Model):
+#     nickname = models.CharField(max_length=128)
+#     first_name = models.CharField(max_length=128)
+
+#     def __str__(self):
+#         return f'{self.nickname} {self.first_name}'

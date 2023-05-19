@@ -21,4 +21,6 @@ urlpatterns = [
     path('api-token-auth/', views.obtain_auth_token),
     path('', include('whore.urls')),
     path('admin/', admin.site.urls),
+    path('auth/', include('djoser.urls')),
+    path('auth/', include('djoser.urls.jwt')),
 ]
