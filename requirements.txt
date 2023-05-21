@@ -4,3 +4,4 @@ psycopg2-binary==2.9.5
 webcolors
 djoser
 djangorestframework-simplejwt==4.7.2
+django-filter
