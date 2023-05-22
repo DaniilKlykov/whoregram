@@ -31,6 +31,11 @@ class Whore(models.Model):
         User, related_name='whores', on_delete=models.CASCADE)
     achievements = models.ManyToManyField(Achievement,
                                           through='AchievementWhore')
+    image = models.ImageField(
+        upload_to='whore/images/',
+        null=True,
+        default=None
+    )
 
     class Meta:
         constraints = [
@@ -50,11 +55,3 @@ class AchievementWhore(models.Model):
 
     def __str__(self):
         return f'{self.achievement} {self.whore}'
-
-
-# class Owner(models.Model):
-#     nickname = models.CharField(max_length=128)
-#     first_name = models.CharField(max_length=128)
-
-#     def __str__(self):
-#         return f'{self.nickname} {self.first_name}'
