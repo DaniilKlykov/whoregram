@@ -6,3 +6,5 @@ djoser
 djangorestframework-simplejwt==4.7.2
 django-filter
 Pillow==9.0.0
+drf_yasg
+django-cors-headers
